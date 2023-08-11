@@ -1,110 +1,3 @@
-// let namaSiswa1 = "Bagus";
-// let namaSiswa2 = "Guswandi";
-// let namaSiswa3 = "Arsya";
-
-// console.log(namaSiswa1);
-// console.log(namaSiswa2);
-// console.log(namaSiswa3);
-
-// Array
-// tabungan value kalian, dimana kalian bisa memiliki lebih dari satu value dalam satu variabel
-// let namaSiswa = ["Bagus", "Guswandi", "Arsya", 2023, true];
-// console.log(namaSiswa);
-// console.log(namaSiswa[1]);
-// console.log(namaSiswa[2]);
-
-// let nama = "Bagus";
-// let alamat = "Tangerang";
-// let umur = 24;
-
-// console.log(nama);
-// console.log(alamat);
-// console.log(umur);
-
-// Object
-// tabungan variabel kalian, dimana kalian bisa memiliki lebih dari satu key-value dalam satu variabel
-// contoh = nama: "Bagus", alamat: "Tangerang"
-// dimana nama sebagai key dan "Bagus" sebagai value
-// let dataPersonal1 = {
-//   nama: "Bagus",
-//   alamat: "Tangerang",
-//   umur: 24,
-// };
-
-// let dataPersonal2 = {
-//   nama: "Guswandi",
-//   alamat: "Padang",
-//   umur: 20,
-// };
-
-// let dataPersonal3 = {
-//   nama: "Arsya",
-//   alamat: "Karawang",
-//   umur: 17,
-// };
-
-// console.log(dataPersonal1);
-// console.log(dataPersonal2.nama);
-// console.log(dataPersonal3.umur);
-
-// Array of object
-// Memperbolehkan kita menyimpan lebih dari satu object dalam satu variabel
-// let dataPersonal = [
-//   {
-//     nama: "Bagus",
-//     alamat: "Tangerang",
-//     umur: 24,
-//   },
-//   {
-//     nama: "Guswandi",
-//     alamat: "Padang",
-//     umur: 20,
-//   },
-//   {
-//     nama: "Arsya",
-//     alamat: "Karawang",
-//     umur: 17,
-//   },
-// ];
-
-// console.log(dataPersonal);
-// console.log(dataPersonal[1]);
-// console.log(dataPersonal[2].nama);
-
-// let data = [];
-
-// function addData(event) {
-//   // preventDefault
-//   // untuk menghindari html menjalankan fungsi yang ia bawa, sebagai contoh refresh page
-//   event.preventDefault();
-
-//   let person = {
-//     nama: "Maulana",
-//     alamat: "Bandung",
-//     umur: 24,
-//   };
-
-//   // fungsi push adalah memasukkan data baru di dalam sebuah array
-//   // sebagai contoh, data person akan dimasukkan ke dalam array data
-//   data.push(person, person);
-
-//   console.log(data);
-// }
-
-// let data = [];
-
-// function addData(event) {
-//   event.preventDefault();
-
-//   let blog = {
-//     title: document.getElementById("input-blog-title").value,
-//     content: document.getElementById("input-blog-content").value,
-//   };
-
-//   data.push(blog);
-//   console.log(data);
-// }
-
 let dataBlog = [];
 
 function addBlog(event) {
@@ -121,8 +14,8 @@ function addBlog(event) {
     title,
     content,
     image,
-    postAt: "10 August 2023",
-    author: "Abel Dustiin",
+    postAt: new Date(),
+    author: "Abel Dustin",
   };
 
   dataBlog.push(blog);
@@ -153,21 +46,99 @@ function renderBlog() {
             >
           </h1>
           <div class="detail-blog-content">
-            ${dataBlog[index].postAt} | ${dataBlog[index].author}
+            ${getFullTime(dataBlog[index].postAt)} | ${dataBlog[index].author}
           </div>
           <p>
             ${dataBlog[index].content}
           </p>
+
+          <div style="float: right; margin: 10px;">
+            <p style="font-size: 15px; color: grey;">${getDistanceTime(
+              dataBlog[index].postAt
+            )}</p>
+          </div>
         </div>
       </div>
     `;
   }
 }
 
-// looping menggunakan for
-// pada () for, value pertama adalah default value
-// value kedua merupakan kondisi
-// value ketiga akan berjalan ketika kondisi value kedua true
-// for (let index = 0; index < dataBlog.length; index++) {
-//   console.log(dataBlog[index]);
-// }
+function getFullTime(time) {
+  // new Date() mendapatkan terkait tanggal dan waktu kapan fungsinya dijalankan
+  // let time = new Date();
+  // console.log(time);
+
+  let monthName = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  // console.log(monthName[0]);
+
+  let date = time.getDate();
+  // console.log(date);
+
+  let monthIndex = time.getMonth();
+  // console.log(monthIndex);
+  // console.log(monthName[monthIndex]);
+
+  let year = time.getFullYear();
+  // console.log(year);
+
+  let hours = time.getHours();
+  let minutes = time.getMinutes();
+
+  if (hours <= 9) {
+    // 09
+    hours = "0" + hours;
+  } else if (minutes <= 9) {
+    minutes = "0" + minutes;
+  }
+
+  // console.log(`${hours}:${minutes}`);
+
+  // 11 Aug 2023 09:18 WIB
+  return `${date} ${monthName[monthIndex]} ${year} ${hours}:${minutes} WIB`;
+}
+
+function getDistanceTime(time) {
+  let timeNow = new Date();
+  let timePost = time;
+
+  let distance = timeNow - timePost; // hasilnya milisecond
+  // console.log(distance);
+
+  let milisecond = 1000; // milisecond
+  let secondInHours = 3600; // 1 jam 3600 Detik
+  let hoursInDays = 24; // 1 Hari 24 Jam
+
+  let distanceDay = Math.floor(
+    distance / (milisecond * secondInHours * hoursInDays)
+  );
+  let distanceHours = Math.floor(distance / (milisecond * 60 * 60));
+  let distanceMinutes = Math.floor(distance / (milisecond * 60));
+  let distanceSecond = Math.floor(distance / milisecond);
+
+  if (distanceDay > 0) {
+    return `${distanceDay} days ago`;
+  } else if (distanceHours > 0) {
+    return `${distanceHours} hours ago`;
+  } else if (distanceMinutes > 0) {
+    return `${distanceMinutes} minutes ago`;
+  } else {
+    return `${distanceSecond} seconds ago`;
+  }
+}
+
+setInterval(function () {
+  renderBlog();
+}, 3000);
