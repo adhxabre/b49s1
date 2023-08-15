@@ -141,4 +141,4 @@ function getDistanceTime(time) {
 
 setInterval(function () {
   renderBlog();
-}, 3000);
+}, 30000);
