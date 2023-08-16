@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials</title>
+    <link rel="stylesheet" href="css/testimonials.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-left">
+        <ul>
+          <li>
+            <img src="image/logo.png" alt="logo" />
+          </li>
+          <li class="item-collapse">
+            <a href="index.html" class="active">Home</a>
+          </li>
+          <li class="item-collapse">
+            <a href="blog.html">Blog</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-right item-collapse">
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-right" id="barsmenu">
+        <button
+          style="background-color: transparent; border: none; cursor: pointer"
+          onclick="openHamburger();"
+        >
+          <i class="fa-2x fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hamburger-nav-container" id="hamburger-nav-container">
+      <a href="index.html" class="hamburger-active">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="container">
+      <h1>My Testimonials</h1>
+      <div class="testimonials" id="testimonials">
+        <!-- <div class="testimonial">
+          <img src="image/MepFIDem_400x400.jpg" class="profile-testimonial" />
+          <p class="quote">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+          <p class="author">- Abel Dustin</p>
+        </div>
+        <div class="testimonial">
+          <img src="image/MepFIDem_400x400.jpg" class="profile-testimonial" />
+          <p class="quote">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+          <p class="author">- Abel Dustin</p>
+        </div>
+        <div class="testimonial">
+          <img src="image/MepFIDem_400x400.jpg" class="profile-testimonial" />
+          <p class="quote">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+          <p class="author">- Abel Dustin</p>
+        </div> -->
+      </div>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="js/testimonials.js"></script>
+  </body>
+</html>
