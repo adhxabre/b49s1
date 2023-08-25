@@ -34,15 +34,15 @@
     <div class="container my-5">
       <div class="blog-detail-container">
         <h1>
-          {{data.title}}
+          {{blog.title}}
         </h1>
-        <div class="author">12 Jul 2021 22:30 WIB | Ichsan Emrald Alamsyah {{data.id}}</div>
+        <div class="author">{{blog.postedAt}} | {{blog.author}}</div>
         <div class="my-3">
           <img class="w-100" src="/images/blog-img-detail.png" alt="detail" />
         </div>
 
         <p>
-          {{data.content}}
+          {{blog.content}}
         </p>
       </div>
     </div>

@@ -13,6 +13,24 @@ app.use(express.static('src/assets'))
 // parsing data from client
 app.use(express.urlencoded({ extended: false }))
 
+// dummy data
+const dataBlog = [
+  {
+    // id: 1,
+    title: "Ini hari jumat",
+    content: "Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir.",
+    author: "Rebbeca Eltra",
+    postedAt: new Date()
+  },
+  {
+    // id: 2,
+    title: "Hari ini laptop jadi berat",
+    content: "Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir.",
+    author: "Jhon doe",
+    postedAt: new Date()
+  }
+]
+
 // routing
 app.get('/', home)
 app.get('/blog', blog)
@@ -20,6 +38,7 @@ app.get('/contact', contactMe)
 app.get('/blog-detail/:id', blogDetail)
 app.get('/form-blog', formBlog)
 app.post('/form-blog', addBlog)
+app.get('/delete-blog/:id', deleteBlog)
 
 // local server
 app.listen(PORT, () => {
@@ -34,10 +53,11 @@ function home(req, res) {
 
 // blog
 function blog(req, res) {
-  res.render('blog')
+
+  res.render('blog', { dataBlog })
 }
 
-// form blog
+// form blogx
 function formBlog(req, res) {
   res.render('form-blog')
 }
@@ -46,9 +66,15 @@ function formBlog(req, res) {
 function addBlog(req, res) {
   const { title, content } = req.body
 
-  console.log(title)
-  console.log(content)
+  const data = {
+    title,
+    content,
+    image: "image.png",
+    author: "Jhon Doe",
+    postedAt: new Date()
+  }
 
+  dataBlog.push(data)
   res.redirect('/blog')
 }
 
@@ -61,25 +87,18 @@ function contactMe(req, res) {
 function blogDetail(req, res) {
   const { id } = req.params
 
-  const data = {
-    id,
-    title: "Pasar Coding di Indonesia Dinilai Masih Menjanjikan",
-    content: "Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir."
-  }
+  res.render('blog-detail', { blog: dataBlog[id] })
+}
 
-  res.render('blog-detail', { data })
+function deleteBlog(req, res) {
+  const { id } = req.params
+
+  dataBlog.splice(id, 1)
+  res.redirect('/blog')
 }
 
 
-// const data = {
-//   id: 1,
-//   name: "jhon"
-// }
+// const arr = [ 3, 4, 2, 1, 5, 4, 5, 9, 8] => [ 3, 4, 2, 5, 4, 5, 9, 8]
+// const arr = [ 3, 4, 2, 1, 5, 4, 5, 9, 8] => [ 3, 4, 2, 9, 8]
 
-// console.log(data.id)
-
-
-// const { id, name } = data
-
-// console.log(id)
-// console.log(name)
+// arr.splice(3, 4)

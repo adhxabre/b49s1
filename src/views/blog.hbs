@@ -37,67 +37,38 @@
         <a class="btn btn-danger btn-submit ms-5" href="/form-blog">Add New Blog</a>
       </div>
 
-      <div class="card mb-3" style="width: 100%;">
-        <div class="row g-0">
-          <div class="col-md-4 p-3">
-            <img src="/images/blog-img.png" class="img-fluid" alt="image-review">
-          </div>
+      {{#each dataBlog}}
+        <div class="card mb-3" style="width: 100%;">
+          <div class="row g-0">
+            <div class="col-md-4 p-3">
+              <img src="/images/blog-img.png" class="img-fluid" alt="image-review">
+            </div>
 
-          <div class="col-md-8">
-            <div class="card-body">
-              <div class="d-flex justify-content-end">
-                <a href="" class="btn btn-secondary text-decoration-none me-3 px-3 py-1" style="font-size: 14px;">EDIT</a>
-                <a href="#" class="btn btn-danger text-decoration-none px-3 py-1"style="font-size: 14px;">DELETE</a>
+            <div class="col-md-8">
+              <div class="card-body">
+                <div class="d-flex justify-content-end">
+                  <a href="" class="btn btn-secondary text-decoration-none me-3 px-3 py-1" style="font-size: 14px;">EDIT</a>
+                  <a href="/delete-blog/{{@index}}" class="btn btn-danger text-decoration-none px-3 py-1"style="font-size: 14px;">DELETE</a>
+                </div>
+
+                <h2 class="card-title m-0 p-0">
+                  <a class="text-decoration-none text-black m-0 p-0" href="/blog-detail/{{@index}}" target="_blank">{{this.title}}</a>
+                </h2>
+
+                <div class="detail-blog-content m-0 p-0 mb-4" style="font-size: 14px;">
+                  {{this.postedAt}} | {{this.author}}
+                </div>  
+
+                <p class="card-text m-0 p-0">{{this.content}}</p>
+                
+                <p class="card-text text-end align-text-bottom m-0 p-0">
+                  <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
               </div>
-
-              <h2 class="card-title m-0 p-0">
-                <a class="text-decoration-none text-black m-0 p-0" href="/blog-detail/119" target="_blank">Pasar Coding di Indonesia Dinilai Masih Menjanjikan</a>
-              </h2>
-
-              <div class="detail-blog-content m-0 p-0 mb-4" style="font-size: 14px;">
-                12 Jul 2021 22:30 WIB | Ichsan Emrald Alamsyah
-              </div>  
-
-              <p class="card-text m-0 p-0">Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir.</p>
-              
-              <p class="card-text text-end align-text-bottom m-0 p-0">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </p>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="card mb-3" style="width: 100%;">
-        <div class="row g-0">
-          <div class="col-md-4 p-3">
-            <img src="/images/blog-img.png" class="img-fluid" alt="image-review">
-          </div>
-
-          <div class="col-md-8">
-            <div class="card-body">
-              <div class="d-flex justify-content-end">
-                <a href="" class="btn btn-secondary text-decoration-none me-3 px-3 py-1" style="font-size: 14px;">EDIT</a>
-                <a href="#" class="btn btn-danger text-decoration-none px-3 py-1"style="font-size: 14px;">DELETE</a>
-              </div>
-
-              <h2 class="card-title m-0 p-0">
-                <a class="text-decoration-none text-black m-0 p-0" href="/blog-detail/08" target="_blank">Pasar Coding di Indonesia Dinilai Masih Menjanjikan</a>
-              </h2>
-
-              <div class="detail-blog-content m-0 p-0 mb-4" style="font-size: 14px;">
-                12 Jul 2021 22:30 WIB | Ichsan Emrald Alamsyah
-              </div>  
-
-              <p class="card-text m-0 p-0">Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir.</p>
-              
-              <p class="card-text text-end align-text-bottom m-0 p-0">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {{/each}}
     </div>
   </body>
 </html>
