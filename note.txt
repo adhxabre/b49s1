@@ -1,0 +1,27 @@
+DDL = Database definition language
+untuk definisi object, hapus, mengubah.
+"CREATE TABLE name_table (name_column with typedata);"
+"
+
+
+DML : Data Manipulation language
+Manipulasi data.
+
+
+SELECT name, email
+	FROM "Users";
+	
+SELECT * FROM "Users";
+
+SELECT * FROM "Users" WHERE id=10;
+	
+INSERT INTO "Users" (name, email, password) 
+	VALUES 
+	('Rebecca Eltra', 'eltra@mail.com', '444'),
+	('Jane', 'jane@mail.com', '444');
+	
+DELETE FROM "Users" WHERE id=13;
+
+UPDATE "Users"
+	SET password='root123ttt'
+	WHERE id=15;

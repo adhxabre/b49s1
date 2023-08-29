@@ -3,6 +3,11 @@ const app = express()
 const PORT = 5000
 const path = require('path')
 
+// sequelize init
+const config = require('./src/config/config.json')
+const { Sequelize, QueryTypes } = require('sequelize')
+const sequelize = new Sequelize(config.development)
+
 // setup call hbs with sub folder
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'src/views'))
@@ -12,24 +17,6 @@ app.use(express.static('src/assets'))
 
 // parsing data from client
 app.use(express.urlencoded({ extended: false }))
-
-// dummy data
-const dataBlog = [
-  {
-    // id: 1,
-    title: "Ini hari jumat",
-    content: "Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir.",
-    author: "Rebbeca Eltra",
-    postedAt: new Date()
-  },
-  {
-    // id: 2,
-    title: "Hari ini laptop jadi berat",
-    content: "Ketimpangan sumber daya manusia (SDM) di sektor digital masih menjadi isu yang belum terpecahkan. Berdasarkan penelitian ManpowerGroup, ketimpangan SDM global, termasuk Indonesia, meningkat dua kali lipat dalam satu dekade terakhir.",
-    author: "Jhon doe",
-    postedAt: new Date()
-  }
-]
 
 // routing
 app.get('/', home)
@@ -52,9 +39,22 @@ function home(req, res) {
 
 
 // blog
-function blog(req, res) {
+async function blog(req, res) {
+  try {
+    const query = `SELECT id, title, image, content, "createdAt" FROM blogs;`
+    let obj = await sequelize.query(query, { type: QueryTypes.SELECT})
 
-  res.render('blog', { dataBlog })
+    const data = obj.map(res => ({
+      ...res,
+      author: "Dandi Saputra"
+    }))
+
+    console.log(data)
+
+    res.render('blog', { data })
+  } catch (error) {
+    console.log(error)
+  } 
 }
 
 // form blogx
