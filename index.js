@@ -49,8 +49,6 @@ async function blog(req, res) {
       author: "Dandi Saputra"
     }))
 
-    console.log(data)
-
     res.render('blog', { data })
   } catch (error) {
     console.log(error)
@@ -63,19 +61,17 @@ function formBlog(req, res) {
 }
 
 // add a new blog
-function addBlog(req, res) {
-  const { title, content } = req.body
-
-  const data = {
-    title,
-    content,
-    image: "image.png",
-    author: "Jhon Doe",
-    postedAt: new Date()
+async function addBlog(req, res) {
+  try {
+    const { title, content } = req.body
+    const image = "image.png"
+    
+    await sequelize.query(`INSERT INTO blogs(title, content, image, "createdAt", "updatedAt") VALUES ('${title}', '${content}', '${image}', NOW(), NOW())`)
+  
+    res.redirect('/blog')
+  } catch (error) {
+    console.log(error)
   }
-
-  dataBlog.push(data)
-  res.redirect('/blog')
 }
 
 // contact me
@@ -84,21 +80,31 @@ function contactMe(req, res) {
 }
 
 // blog detail
-function blogDetail(req, res) {
-  const { id } = req.params
+async function blogDetail(req, res) {
+  try {
+    const { id } = req.params
+    const query = `SELECT * FROM "blogs" WHERE id=${id}`  
 
-  res.render('blog-detail', { blog: dataBlog[id] })
+    const obj = await sequelize.query(query, {type: QueryTypes.SELECT})
+
+    const data = obj.map((res) => ({
+      ...res,
+      author: "Eltra"
+    }))
+
+    res.render('blog-detail', { blog: data[0] })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-function deleteBlog(req, res) {
-  const { id } = req.params
+async function deleteBlog(req, res) {
+  try {
+    const { id } = req.params
 
-  dataBlog.splice(id, 1)
-  res.redirect('/blog')
+    await sequelize.query(`DELETE FROM blogs WHERE id = ${id}`)
+    res.redirect('/blog')
+  } catch (error) {
+    console.log(error)
+  }
 }
-
-
-// const arr = [ 3, 4, 2, 1, 5, 4, 5, 9, 8] => [ 3, 4, 2, 5, 4, 5, 9, 8]
-// const arr = [ 3, 4, 2, 1, 5, 4, 5, 9, 8] => [ 3, 4, 2, 9, 8]
-
-// arr.splice(3, 4)
