@@ -20,59 +20,44 @@
               <a class="nav-link " aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item ms-3">
-              <a class="nav-link fw-semibold active text-danger" href="/blog">Blog</a>
+              <a class="nav-link" href="/blog">Add Blog</a>
             </li>
           </ul>
 
           <div class="d-flex justify-content-end">
-            <ul class="navbar-nav me-auto mb-2 ms-5 mb-lg-0">
-              {{#if isLogin}}
+              <ul class="navbar-nav me-auto mb-2 ms-5 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link text-danger active fw-semibold" href="#">Hello, {{user}}</a>
+                  <a class="nav-link text-danger active fw-semibold" href="/register">Register</a>
                 </li>
                 <li class="nav-item ms-3">
-                  <a class="nav-link " href="/logout">Logout</a>
+                  <a class="nav-link" href="/login">Login</a>
                 </li>
-              {{else}}
-                <li class="nav-item">
-                  <a class="nav-link" href="/register">Register</a>
-                </li>
-                <li class="nav-item ms-3">
-                  <a class="nav-link text-danger active fw-semibold" href="/login">Login</a>
-                </li>
-              {{/if}}
-            </ul>
-            <a class="btn btn-danger btn-submit ms-5" href="/contact">Contact Me</a>
+              </ul>
+              <a class="btn btn-danger btn-submit ms-5" href="/contact-me">Contact Me</a>
           </div>
         </div>
       </div>
     </nav>
 
-    <!-- Form blog -->
     <div class="container d-flex justify-content-center">
       <div class="w-50">
-        <h3 class="text-center mt-5">Create Post Blog</h3>
-        <form class="mt-5" method="post" action="form-blog">
+        <h3 class="text-center mt-5">REGISTER</h3>
+        <form action="/register" method="POST">
           <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" id="title">
+            <label for="username" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" id="username" aria-describedby="emailHelp" />
           </div>
-
           <div class="mb-3">
-            <label for="content" class="form-label">Content</label>
-            <textarea class="form-control" name="content" id="content" style="height: 300px; resize: none;"></textarea>
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" />
           </div>
-
           <div class="mb-3">
-            <label class="form-label" for="upload">Upload Image</label>
-            <input type="file" class="form-control w-100" id="upload">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" />
           </div>
-          
-          <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-danger mt-5 px-5">Submit</button>
-          </div>
+          <button type="submit" class="btn btn-danger mt-3 px-5">Submit</button>
         </form>
       </div>
     </div>
   </body>
-</html>
+</html> 

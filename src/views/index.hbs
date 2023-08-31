@@ -25,11 +25,36 @@
             </ul>
 
             <div class="d-flex justify-content-end">
+              <ul class="navbar-nav me-auto mb-2 ms-5 mb-lg-0">
+                {{#if isLogin}}
+                  <li class="nav-item">
+                    <a class="nav-link text-danger active fw-semibold" href="#">Hello, {{user}}</a>
+                  </li>
+                  <li class="nav-item ms-3">
+                    <a class="nav-link " href="/logout">Logout</a>
+                  </li>
+                {{else}}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                  </li>
+                  <li class="nav-item ms-3">
+                    <a class="nav-link text-danger active fw-semibold" href="/login">Login</a>
+                  </li>
+                {{/if}}
+              </ul>
               <a class="btn btn-danger btn-submit ms-5" href="/contact">Contact Me</a>
             </div>
           </div>
         </div>
       </nav>
+
+      {{#if messages.success}}
+        <div class="alert alert-success" role="alert">
+          <div class="container">
+            {{messages.success}}
+          </div>
+        </div>
+      {{/if}}
 
       <div class="container d-flex mt-5">
         <div class="card p-3" style="max-width: 22rem; flex: 40%;">
