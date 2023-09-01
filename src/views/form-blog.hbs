@@ -52,7 +52,7 @@
     <div class="container d-flex justify-content-center">
       <div class="w-50">
         <h3 class="text-center mt-5">Create Post Blog</h3>
-        <form class="mt-5" method="post" action="form-blog">
+        <form class="mt-5" method="post" action="form-blog" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" name="title" class="form-control" id="title">
@@ -65,7 +65,7 @@
 
           <div class="mb-3">
             <label class="form-label" for="upload">Upload Image</label>
-            <input type="file" class="form-control w-100" id="upload">
+            <input type="file" class="form-control w-100" id="upload" name="upload-image">
           </div>
           
           <div class="d-flex justify-content-end">

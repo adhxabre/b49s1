@@ -5,6 +5,7 @@ const path = require('path')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
 const flash = require('express-flash')
+const upload = require('./src/middlewares/uploadFiles')
 
 // sequelize init
 const config = require('./src/config/config.json')
@@ -17,6 +18,7 @@ app.set('views', path.join(__dirname, 'src/views'))
 
 // set serving static file
 app.use(express.static('src/assets'))
+app.use(express.static('src/uploads'))
 
 // parsing data from client
 app.use(express.urlencoded({ extended: false }))
@@ -43,7 +45,7 @@ app.get('/blog', blog)
 app.get('/contact', contactMe)
 app.get('/blog-detail/:id', blogDetail)
 app.get('/form-blog', formBlog)
-app.post('/form-blog', addBlog)
+app.post('/form-blog', upload.single('upload-image'), addBlog)
 app.get('/delete-blog/:id', deleteBlog)
 
 // login & register
@@ -69,12 +71,13 @@ function home(req, res) {
 // blog
 async function blog(req, res) {
   try {
-    const query = `SELECT id, title, image, content, "createdAt" FROM blogs;`
+    const query = `SELECT blogs.id, title, image, content, blogs."createdAt", users.name AS author FROM blogs LEFT JOIN users ON blogs.author = users.id ORDER BY blogs.id DESC;`
     let obj = await sequelize.query(query, { type: QueryTypes.SELECT})
+
+    console.log(obj)
 
     const data = obj.map(res => ({
       ...res,
-      author: "Dandi Saputra",
       isLogin: req.session.isLogin
     }))
 
@@ -97,9 +100,12 @@ function formBlog(req, res) {
 async function addBlog(req, res) {
   try {
     const { title, content } = req.body
-    const image = "image.png"
-    
-    await sequelize.query(`INSERT INTO blogs(title, content, image, "createdAt", "updatedAt") VALUES ('${title}', '${content}', '${image}', NOW(), NOW())`)
+    const image = req.file.filename
+    const author = req.session.idUser
+
+    console.log(image)
+
+    await sequelize.query(`INSERT INTO blogs(title, content, image, author, "createdAt", "updatedAt") VALUES ('${title}', '${content}', '${image}', ${author}, NOW(), NOW())`)
   
     res.redirect('/blog')
   } catch (error) {
@@ -116,13 +122,12 @@ function contactMe(req, res) {
 async function blogDetail(req, res) {
   try {
     const { id } = req.params
-    const query = `SELECT * FROM "blogs" WHERE id=${id}`  
+    const query = `SELECT blogs.id, title, image, content, blogs."createdAt", users.name AS author FROM blogs LEFT JOIN users ON blogs.author = users.id WHERE blogs.id=${id}`  
 
     const obj = await sequelize.query(query, {type: QueryTypes.SELECT})
 
     const data = obj.map((res) => ({
       ...res,
-      author: "Eltra"
     }))
 
     res.render('blog-detail', { blog: data[0] })
@@ -189,6 +194,7 @@ async function userLogin(req, res) {
         return res.redirect('/login')
       } else {
         req.session.isLogin = true
+        req.session.idUser = obj[0].id
         req.session.user = obj[0].name
         req.flash('success', 'login success')
         res.redirect('/')
@@ -202,3 +208,8 @@ async function userLogin(req, res) {
 // user@mail.com
 // password from tag input = root
 // password from database = $2b$10$R2JDQXMynWYBjwJfMfloIupInHYedEbOccPqxBL604ds98fofsE2K
+
+// STRUCT BELANJA KOPI
+// Transaction => Product => Profile
+// Product => Kopi etc. => Product
+// Profile
